@@ -12,12 +12,20 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json --noEmit",
-    "test": "vp test run"
+    "test": "vp test run",
+    "tcb:help": "tcb --help",
+    "tcb:login": "tcb login",
+    "tcb:gentype": "tcb --config-file cloudbaserc.json db model pull",
+    "pg:pull": "tcb --config-file cloudbaserc.json db pg migration fetch",
+    "pg:pull:dry": "tcb --config-file cloudbaserc.json db pg migration fetch --dry-run",
+    "pg:push": "tcb --config-file cloudbaserc.json db pg migration up",
+    "pg:push:dry": "tcb --config-file cloudbaserc.json db pg migration up --dry-run"
   },
   "dependencies": {
     "@cloudbase/js-sdk": "latest"
   },
   "devDependencies": {
+    "@cloudbase/cli": "catalog:",
     "@repo/tsconfig": "workspace:*",
     "typescript": "catalog:",
     "vite-plus": "catalog:"
