@@ -1,21 +1,36 @@
 {
   "name": "@repo/cloudbase",
   "version": "0.0.0",
-  "private": true,
+  "private": false,
+  "files": [
+    "dist",
+    "scripts/typegen.ts",
+    "README.md",
+    "LICENSE"
+  ],
   "type": "module",
-  "types": "./src/index.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./src/index.ts",
-      "import": "./src/index.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./vite": {
+      "types": "./dist/vite.d.ts",
+      "import": "./dist/vite.js"
     }
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json --noEmit",
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vp test run",
     "tcb:help": "tcb --help",
     "tcb:login": "tcb login",
-    "tcb:gentype": "tcb --config-file cloudbaserc.json db model pull",
+    "tcb:gentype": "pnpm db:typegen:admin",
+    "db:typegen": "node --experimental-strip-types scripts/typegen.ts",
+    "db:typegen:admin": "node --experimental-strip-types scripts/typegen.ts --admin",
     "pg:pull": "tcb --config-file cloudbaserc.json db pg migration fetch",
     "pg:pull:dry": "tcb --config-file cloudbaserc.json db pg migration fetch --dry-run",
     "pg:push": "tcb --config-file cloudbaserc.json db pg migration up",
