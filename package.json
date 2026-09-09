@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "ready": "vp check && vp run -r test && vp run -r build",
+    "db:typegen": "pnpm --filter @repo/cloudbase db:typegen",
     "dev": "vp run shores#dev",
     "prepare": "vp config"
   },

@@ -41,5 +41,6 @@ peerDependencyRules:
     vite: "*"
 allowBuilds:
   "@parcel/watcher": true
+  core-js-pure: true
   esbuild: true
   sharp: true
