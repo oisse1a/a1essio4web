@@ -3,7 +3,7 @@ import type { Row } from "@repo/cloudbase";
 import { Button } from "@repo/shadcn/components/ui/button";
 import { createFileRoute } from "@tanstack/react-router";
 
-import { cloudbase } from "#/cloudbase";
+import { cloudbase } from "@/cloudbase";
 
 export const Route = createFileRoute("/")({ component: App });
 
