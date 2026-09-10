@@ -72,9 +72,10 @@ function App() {
   }
 
   return (
-    <main className="page-wrap mx-auto max-w-2xl px-4 pb-12 pt-14">
+    <main className="page-wrap  mx-auto max-w-2xl px-4 pb-12 pt-14">
+      <h1 className="w-1 h-0.5 backdrop-blur-2xl">css测试</h1>
       <header className="mb-8">
-        <p className="text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground">
+        <p className="text-sm font-medium tracking-[0.2em] uppercase text-muted-foreground">
           CloudBase CRUD
         </p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight">Todo 类型测试</h1>

@@ -11,16 +11,13 @@
     "./hooks/*": "./src/hooks/*.ts"
   },
   "scripts": {
-    "dev": "vp dev",
-    "build": "tsc -b && vp build",
-    "lint": "vp lint",
-    "preview": "vp preview"
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "vp lint"
   },
   "dependencies": {
     "@base-ui/react": "catalog:",
     "@fontsource-variable/inter": "catalog:",
     "@shadcn/react": "catalog:",
-    "@tailwindcss/vite": "catalog:",
     "class-variance-authority": "catalog:",
     "clsx": "catalog:",
     "cmdk": "catalog:",
@@ -41,13 +38,8 @@
     "tw-animate-css": "catalog:"
   },
   "devDependencies": {
-    "@repo/tsconfig": "workspace:*",
-    "@types/node": "^24.13.3",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
-    "@vitejs/plugin-react": "^6.1.0",
-    "typescript": "~6.0.2",
-    "vite": "catalog:",
-    "vite-plus": "catalog:"
+    "typescript": "~6.0.2"
   }
 }
