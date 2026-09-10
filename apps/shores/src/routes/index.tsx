@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-import { cloudbase, type Row } from "@repo/cloudbase/vite";
+import type { Row } from "@repo/cloudbase";
 import { Button } from "@repo/shadcn/components/ui/button";
 import { createFileRoute } from "@tanstack/react-router";
+
+import { cloudbase } from "#/cloudbase";
 
 export const Route = createFileRoute("/")({ component: App });
 
@@ -18,6 +20,7 @@ function App() {
     setLoading(true);
     const result = await todoTable.select("*").limit(100);
     if (result.error) setMessage("加载 todo 失败");
+    console.log("result", result);
     setTodos(result.data ?? []);
     setLoading(false);
   }
@@ -25,7 +28,7 @@ function App() {
   useEffect(() => {
     void (async () => {
       try {
-        await cloudbase.auth().anonymousAuthProvider().signIn();
+        await cloudbase.auth().signInAnonymously({});
         await loadTodos();
       } catch {
         setLoading(false);

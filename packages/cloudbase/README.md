@@ -16,15 +16,22 @@ const todos = await cloudbase.rdb().from("todo").select("*").limit(100);
 await cloudbase.auth().anonymousAuthProvider().signIn();
 ```
 
-`cloudbase.auth()`、`database()`、`storage()` 等方法直接使用 CloudBase SDK 的原生类型；`rdb()` 是同一个客户端上的类型增强方法。
+`cloudbase.auth()`、`database()`、`storage()` 等方法直接使用 CloudBase SDK 的原生类型。
 
-Vite 应用可以使用内置环境变量实例：
+`rdb()` 就是 SDK 原生的 PostgreSQL 客户端（请求 `/rdb/rest`）。本包只把它的返回类型收窄为生成的 `Database`，不覆盖任何运行时实现，因此不会误落到文档数据库。
+
+环境变量由调用方提供，本包不读取 `import.meta.env`，可在 Node、测试环境和其他 bundler 中安全导入：
 
 ```ts
-import { cloudbase } from "@repo/cloudbase/vite";
+import { createCloudbaseClient } from "@repo/cloudbase";
+
+export const cloudbase = createCloudbaseClient({
+  env: import.meta.env.VITE_CLOUDBASE_ENV_ID,
+  accessKey: import.meta.env.VITE_CLOUDBASE_ACCESS_KEY,
+});
 ```
 
-主入口不读取 `import.meta.env`，因此可以在 Node、测试环境和其他 bundler 中安全导入。
+本包以 TypeScript 源码形式被其他 workspace 包直接导入（`exports` 指向 `src/index.ts`），没有构建步骤，修改后即时生效。
 
 ## TCB CLI
 
@@ -51,4 +58,4 @@ node --experimental-strip-types scripts/typegen.ts --role my_database_role
 
 默认角色是 `cloudbase_read_only_user`，也可以通过 `CLOUDBASE_DB_ROLE` 指定已授权角色。`--admin` 和 `--role` 不能同时使用。
 
-生成后执行 `pnpm build` 会输出 `dist` 中的 ESM 和 `.d.ts` 文件，可直接发布或被其他项目安装使用。
+生成后类型随源码直接生效，无需构建或发布。

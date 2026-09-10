@@ -1,7 +1,4 @@
 {
   "extends": "@repo/tsconfig/base.json",
-  "include": ["src", "types/env.d.ts"],
-  "compilerOptions": {
-    "allowJs": true
-  }
+  "include": ["src"]
 }

@@ -1,27 +1,19 @@
 import cloudbaseSDK from "@cloudbase/js-sdk";
-import { typedRdb, type TypedRdb } from "./database";
+import type { TypedRdb } from "./database";
 
 export type CloudbaseConfig = Parameters<typeof cloudbaseSDK.init>[0];
-export type CloudbaseClient = Omit<ReturnType<typeof cloudbaseSDK.init>, "rdb"> & {
+export type CloudbaseSdkClient = ReturnType<typeof cloudbaseSDK.init>;
+
+/**
+ * The SDK client with `rdb()` narrowed to the generated `Database` types.
+ *
+ * Only the type is narrowed: the native `rdb()` implementation is kept as-is,
+ * so calls reach the environment PostgreSQL instance via `/rdb/rest`.
+ */
+export type CloudbaseClient = Omit<CloudbaseSdkClient, "rdb"> & {
   rdb: () => TypedRdb;
 };
-export type AnonymousSession =
-  | Awaited<ReturnType<ReturnType<CloudbaseClient["auth"]>["getCurrentUser"]>>
-  | object;
 
 export function createCloudbaseClient(config: CloudbaseConfig): CloudbaseClient {
-  const sdkClient = cloudbaseSDK.init(config);
-  return Object.assign(sdkClient, {
-    rdb: () => typedRdb(sdkClient),
-  });
-}
-
-export async function ensureAnonymousSession(client: CloudbaseClient): Promise<AnonymousSession> {
-  const auth = client.auth();
-  const currentUser = await auth.getCurrentUser();
-  if (currentUser) return currentUser;
-
-  const result = await auth.signInAnonymously();
-  if (result.error) throw result.error;
-  return result.data?.user ?? null;
+  return cloudbaseSDK.init(config) as unknown as CloudbaseClient;
 }
