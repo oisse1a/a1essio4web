@@ -31,7 +31,6 @@
     "react-dom": "^19.2.8",
     "react-resizable-panels": "catalog:",
     "recharts": "catalog:",
-    "shadcn": "^4.20.1",
     "sonner": "catalog:",
     "tailwind-merge": "catalog:",
     "tailwindcss": "catalog:",
@@ -40,6 +39,7 @@
   "devDependencies": {
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
+    "shadcn": "catalog:",
     "typescript": "~6.0.2"
   }
 }
