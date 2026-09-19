@@ -12,7 +12,7 @@ const cloudbase = createCloudbaseClient({
   region: "ap-shanghai",
 });
 
-const todos = await cloudbase.rdb().from("todo").select("*").limit(100);
+const posts = await cloudbase.rdb().from("forum_posts").select("*").limit(100);
 await cloudbase.auth().anonymousAuthProvider().signIn();
 ```
 
