@@ -36,7 +36,7 @@ This project ships with `netlify.toml` configured for a Netlify site:
 
 1. Push this repo to GitHub
 2. Visit https://app.netlify.com/start and import the repo
-3. Netlify auto-detects the build (`vite build` → `dist/client`)
+3. Netlify runs the workspace build (`pnpm --filter portal run build` → `apps/portal/dist/client`)
 4. Open **Site settings → Environment variables** and add anything from `.env.example` that needs a real value in production
 5. Trigger the first deploy
 

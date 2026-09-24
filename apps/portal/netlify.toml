@@ -1,6 +1,6 @@
 [build]
-command = "vite build"
-publish = "dist/client"
+command = "pnpm --filter portal run build"
+publish = "apps/portal/dist/client"
 [dev]
 command = "npm run dev"
 targetPort = 3000
