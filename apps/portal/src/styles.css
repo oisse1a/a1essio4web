@@ -88,7 +88,7 @@ body {
   margin: 0;
   color: var(--sea-ink);
   font-family: var(--font-sans);
-  background-color: var(--bg-base);
+  /* background-color: var(--bg-base);
   background:
     radial-gradient(1100px 620px at -8% -10%, var(--hero-a), transparent 58%),
     radial-gradient(1050px 620px at 112% -12%, var(--hero-b), transparent 62%),
@@ -98,7 +98,7 @@ body {
       color-mix(in oklab, var(--sand) 68%, white) 0%,
       var(--foam) 44%,
       var(--bg-base) 100%
-    );
+    ); */
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -111,10 +111,10 @@ body::before {
   pointer-events: none;
   z-index: -1;
   opacity: 0.28;
-  background:
+  /* background:
     radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.8), transparent 34%),
     radial-gradient(circle at 78% 26%, rgba(79, 184, 178, 0.2), transparent 42%),
-    radial-gradient(circle at 42% 82%, rgba(47, 106, 74, 0.14), transparent 36%);
+    radial-gradient(circle at 42% 82%, rgba(47, 106, 74, 0.14), transparent 36%); */
 }
 
 body::after {
@@ -124,11 +124,11 @@ body::after {
   pointer-events: none;
   z-index: -1;
   opacity: 0.14;
-  background-image:
+  /* background-image:
     linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
   background-size: 28px 28px;
-  mask-image: radial-gradient(circle at 50% 30%, black, transparent 78%);
+  mask-image: radial-gradient(circle at 50% 30%, black, transparent 78%); */
 }
 
 a {
@@ -474,4 +474,21 @@ a {
     opacity: 1;
     transform: translateY(0);
   }
+}
+span,
+a,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+li,
+button,
+input,
+select,
+textarea {
+  /* 同一文字缩放 */
+  font-size: clamp(0.7rem, 0.489rem + 1.05vw, 1.2rem) !important;
 }

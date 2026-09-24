@@ -28,6 +28,7 @@
     "@tanstack/react-store": "latest",
     "@tanstack/react-table": "latest",
     "@tanstack/store": "latest",
+    "lucide-react": "catalog:",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "tailwindcss": "^4.1.18",

@@ -1,11 +1,7 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
-
-  "// 0. 应用元数据": "",
-  "calm_green_otter": "Come on, smile!",
-  "bright_blue_fox": "Nothings Corner",
-
-  "// 1. 基础页面 / 路由 (Pages & Navigation)": "",
+  "calm_green_otter": "A1essio",
+  "bright_blue_fox": "A corner of the world",
   "quiet_silver_bird": "Home",
   "warm_golden_deer": "Dashboard",
   "soft_purple_cat": "Settings",
@@ -20,8 +16,6 @@
   "quiet_appearance_settings": "Appearance",
   "calm_language_settings": "Language",
   "soft_notification_settings": "Notification Settings",
-
-  "// 2. 基础通用操作 (Common Actions)": "",
   "kind_green_tree": "OK",
   "small_blue_star": "Cancel",
   "warm_red_sun": "Close",
@@ -61,8 +55,6 @@
   "calm_green_wolf": "Details",
   "gray_try_again": "Try Again",
   "orange_retry_request": "Retry",
-
-  "// 3. 表单字段名称 (Form Labels)": "",
   "blue_calm_otter": "Name",
   "green_soft_fox": "Title",
   "orange_warm_bird": "Description",
@@ -81,15 +73,11 @@
   "purple_happy_sun": "End Date",
   "red_small_moon": "Created At",
   "gray_warm_bird": "Updated At",
-
-  "// 4. 表单占位符/提示词 (Placeholders & Inputs)": "",
   "zany_gaudy_mongoose_renew": "Please enter {field}",
   "gentle_confirm_placeholder": "Please re-enter {field}",
   "soft_search_placeholder": "Search content",
   "green_search_placeholder": "Search...",
   "warm_select_placeholder": "Please select {field}",
-
-  "// 5. 表单校验与提示信息 (Validation Messages & Hints)": "",
   "calm_required_message": "{field} cannot be empty",
   "bright_invalid_message": "Invalid {field} format",
   "quiet_email_invalid_message": "Please enter a valid email address",
@@ -103,8 +91,6 @@
   "soft_code_invalid_message": "Incorrect verification code",
   "green_required_hint": "This field is required",
   "blue_optional_hint": "This field is optional",
-
-  "// 6. 对话框 / 弹窗 (Dialogs & Modals)": "",
   "warm_confirm_dialog_title": "Confirm Action",
   "calm_confirm_dialog_description": "Are you sure you want to perform this action?",
   "soft_delete_dialog_title": "Confirm Delete",
@@ -117,12 +103,8 @@
   "quiet_unsaved_dialog_stay": "Stay",
   "green_close_dialog_title": "Close Window",
   "blue_close_dialog_description": "Are you sure you want to close?",
-
-  "// 7. Toast 消息通知 (Toasts & Notifications)": "",
   "happy_success_toast": "{action} successfully",
   "blue_save_failed_toast": "Failed to {action}",
-
-  "// 8. 数据与系统状态 (Statuses & States)": "",
   "calm_loading_status": "Loading",
   "soft_saving_status": "Saving",
   "green_submitting_status": "Submitting",
@@ -144,8 +126,6 @@
   "warm_load_failed_state": "Failed to load data",
   "soft_load_more_action": "Load More",
   "gentle_all_loaded_state": "All items loaded",
-
-  "// 9. 列表、表格与分页 (Tables, Lists & Pagination)": "",
   "orange_search_results_title": "Search Results",
   "purple_search_result_count": "Found {count} results",
   "gray_search_clear": "Clear Search",
@@ -165,8 +145,6 @@
   "blue_table_cancel_sort": "Clear Sort",
   "orange_table_filter": "Filter",
   "purple_table_columns": "Columns",
-
-  "// 10. 认证与账号管理 (Auth & Account)": "",
   "warm_login": "Log In",
   "dark_blue_moon": "Log Out",
   "quiet_register": "Register",
@@ -199,8 +177,6 @@
   "purple_change_avatar": "Change Avatar",
   "red_profile_updated": "Profile updated successfully",
   "gray_password_updated": "Password changed successfully",
-
-  "// 11. 文件与附件管理 (File Operations)": "",
   "red_upload_file": "Upload File",
   "gray_uploading_file": "Uploading...",
   "warm_drag_file": "Drag files here, or click to upload",
@@ -214,29 +190,24 @@
   "purple_file_upload_success": "File uploaded successfully",
   "red_file_size_limit": "File size cannot exceed {size}",
   "gray_allowed_file_types": "Supported file types: {types}",
-
-  "// 12. 异常、错误与权限 (Errors & Permissions)": "",
   "warm_error_title": "Something Went Wrong",
   "bright_unknown_error": "An unknown error occurred",
   "quiet_network_error": "Network connection failed",
   "calm_server_error": "Server error occurred",
   "soft_timeout_error": "Request timed out",
   "green_unauthorized_error": "Unauthorized",
-  "blue_forbidden_error": "Access Denied",
   "orange_not_found_error": "Requested content does not exist",
   "purple_validation_error": "Invalid request parameters",
   "red_go_home": "Back to Home",
   "warm_no_permission": "You do not have permission to perform this action",
   "bright_access_denied": "Access Denied",
-  "quiet_contact_admin": "Contact administrator for access permission",
+  "quiet_contact_admin": "Please log in with the appropriate credentials  to access this resource.",
   "calm_offline": "Network connection lost",
   "soft_online": "Network connection restored",
   "green_request_failed": "Request failed",
   "blue_request_timeout": "Request timed out",
   "blue_not_found_title": "Page Not Found",
   "orange_not_found_description": "Sorry, the page you visited does not exist.",
-
-  "// 13. 时间与相对时间 (Time & Relative Time)": "",
   "purple_just_now": "Just now",
   "red_seconds_ago": "{count} seconds ago",
   "gray_minutes_ago": "{count} minutes ago",
@@ -245,8 +216,6 @@
   "quiet_weeks_ago": "{count} weeks ago",
   "calm_months_ago": "{count} months ago",
   "soft_years_ago": "{count} years ago",
-
-  "// 14. 主题、语言与底部信息 (Themes & System Settings)": "",
   "green_light_theme": "Light",
   "blue_dark_theme": "Dark",
   "orange_system_theme": "System",
@@ -261,8 +230,7 @@
   "gray_terms_of_service": "Terms of Service",
   "warm_contact_us": "Contact Us",
   "bright_copyright": "© {year} {name}. All rights reserved.",
-
-  "// 15. 其他 / 样例测试 (Misc / Examples)": "",
   "example_message": "Hello {username}",
-  "last_sound_bear_wave": "Testing plugin"
+  "last_sound_bear_wave": "Coming soon...",
+  "tired_maroon_javelina_delight": "Go Back"
 }
