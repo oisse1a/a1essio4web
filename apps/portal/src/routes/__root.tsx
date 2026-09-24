@@ -1,4 +1,4 @@
-import { HeadContent, Scripts, createRootRouteWithContext } from "@tanstack/react-router";
+import { HeadContent, Link, Scripts, createRootRouteWithContext } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import Footer from "../components/Footer";
@@ -8,12 +8,11 @@ import StoreDevtools from "../lib/demo-store-devtools";
 
 import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
 
-import shadcnCss from "@repo/shadcn/globals.css?url";
 import sourceCss from "@repo/shadcn/source.css?url";
 import appCss from "../styles.css?url";
 
 import type { QueryClient } from "@tanstack/react-query";
-
+import { getLocale } from "~/app/paraglide/runtime.js";
 interface MyRouterContext {
   queryClient: QueryClient;
 }
@@ -46,26 +45,40 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       },
       {
         rel: "stylesheet",
-        href: shadcnCss,
-      },
-      {
-        rel: "stylesheet",
         href: sourceCss,
       },
     ],
   }),
   shellComponent: RootDocument,
+  notFoundComponent: NotFound,
 });
+
+function NotFound() {
+  return (
+    <main className="page-wrap mx-auto flex min-h-[50vh] max-w-4xl flex-col items-start justify-center px-4 py-16">
+      <p className="text-sm font-medium tracking-[0.2em] text-muted-foreground uppercase">404</p>
+      <h1 className="mt-3 text-4xl font-semibold tracking-tight">页面不存在</h1>
+      <p className="mt-4 text-muted-foreground">你访问的页面可能已经移动或被删除。</p>
+      <Link
+        to="/"
+        className="mt-8 inline-flex rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground no-underline"
+      >
+        返回首页
+      </Link>
+    </main>
+  );
+}
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="zh" suppressHydrationWarning>
+    <html lang={getLocale()} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         <HeadContent />
       </head>
       <body className="font-sans antialiased wrap-anywhere selection:bg-[rgba(79,184,178,0.24)]">
         <Header />
+
         {children}
         <Footer />
         <TanStackDevtools

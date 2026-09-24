@@ -3,10 +3,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vp dev --port 3001",
+    "dev": "vp dev --port 3000",
     "generate-routes": "tsr generate",
     "build": "vp build",
-    "preview": "vp preview"
+    "preview": "vp preview",
+    "machine-translate": "inlang machine translate --project project.inlang"
   },
   "dependencies": {
     "@faker-js/faker": "^10.3.0",
@@ -33,6 +34,8 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@inlang/cli": "^3.0.0",
+    "@inlang/paraglide-js": "^2.25.4",
     "@netlify/vite-plugin-tanstack-start": "^1.2.15",
     "@repo/tsconfig": "workspace:*",
     "@tailwindcss/typography": "^0.5.16",
