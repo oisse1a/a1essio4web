@@ -1,31 +1,13 @@
 {
   "name": "@repo/cloudbase",
   "version": "0.0.0",
-  "private": false,
-  "files": [
-    "dist",
-    "scripts/typegen.ts",
-    "README.md",
-    "LICENSE"
-  ],
+  "private": true,
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    },
-    "./vite": {
-      "types": "./dist/vite.d.ts",
-      "import": "./dist/vite.js"
-    }
+    ".": "./src/index.ts"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "vp test run",
     "tcb:help": "tcb --help",
     "tcb:login": "tcb login",
     "tcb:gentype": "pnpm db:typegen:admin",
@@ -42,7 +24,6 @@
   "devDependencies": {
     "@cloudbase/cli": "catalog:",
     "@repo/tsconfig": "workspace:*",
-    "typescript": "catalog:",
-    "vite-plus": "catalog:"
+    "typescript": "catalog:"
   }
 }

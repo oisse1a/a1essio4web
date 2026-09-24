@@ -25,3 +25,14 @@ release. Add a tool name to select part of the graph. For example, run
 - [ ] If setup, runtime, or package-manager behavior looks wrong, run `vp env doctor` and include its output when asking for help.
 
 <!--VITE PLUS END-->
+
+## Deployment Constraints (本项目硬约束，AI 必须遵守)
+
+本项目部署走 **Netlify**，**不要**引入任何其它部署服务 / 集成：
+
+- **保留**：Netlify（`apps/forum/netlify.toml`、`apps/portal/netlify.toml`、`netlify.toml`、Netlify Functions）
+- **禁止引入**：CloudStudio、EdgeOne Pages / Makers、Lighthouse 轻量应用服务器、CloudBase 静态托管（`manageHosting`）、`manageApps` 等任何腾讯生态部署集成
+- **禁止调用**：`invoke_integration(id="cloudStudio"|"eop"|"lighthouse")`、`manageApps`、`manageHosting`（除非要查已部署内容；这时用 `cloud_studio_list_deployments` / `queryHosting` 等只读入口，写操作必须先得到人工授权）
+- **禁止**：把任何 service_role / API Key 写进带 `VITE_` 前缀的环境变量——它们会进入 Netlify 浏览器产物，导致密钥泄露；任何需要绕过 RLS 的写操作请走后端 API Key（Netlify Functions），不要在浏览器侧滥用
+
+迁移 / 数据库 schema 变更：仍然走 CloudBase（`packages/cloudbase/cloudbase/migrations/` + `vp run pg:push`），不要换数据库供应商。

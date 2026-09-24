@@ -1,8 +1,0 @@
-{
-  "ignorePatterns": [
-    "packages/shadcn/src/lib/**/*",
-    "packages/shadcn/src/hooks/**/*",
-    "packages/shadcn/src/components/**/*",
-    "**/routeTree.gen.ts"
-  ]
-}

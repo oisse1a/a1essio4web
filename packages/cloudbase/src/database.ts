@@ -1,134 +1,58 @@
+// oxlint-disable typescript/no-redundant-type-constituents
 import type { Database } from "./database.types";
-import type { CloudbaseSdkClient } from "./internal-types";
 
 export type TableName = keyof Database["public"]["Tables"] & string;
 export type Row<Table extends TableName> = Database["public"]["Tables"][Table]["Row"];
 export type Insert<Table extends TableName> = Database["public"]["Tables"][Table]["Insert"];
 export type Update<Table extends TableName> = Database["public"]["Tables"][Table]["Update"];
 
+export type RdbError = {
+  message: string;
+  code?: string;
+  details?: string;
+  hint?: string;
+};
+
 export type RdbResult<RowType> = {
   data: RowType[] | null;
-  error: unknown | null;
+  error: RdbError | null;
 };
 
-export type TypedRdbQuery<RowType> = {
-  select(): TypedRdbQuery<RowType>;
-  select(columns: "*"): TypedRdbQuery<RowType>;
-  limit(count: number): Promise<RdbResult<RowType>>;
+export type RdbSingleResult<RowType> = {
+  data: RowType | null;
+  error: RdbError | null;
 };
 
-export type TypedRdbFilter<RowType> = {
+/**
+ * Type-only mirror of the native `rdb()` query builder from `@cloudbase/js-sdk`,
+ * which is a PostgREST-style client bound to the environment PostgreSQL instance.
+ *
+ * The runtime is entirely the SDK's; this surface only narrows table names,
+ * column names and written values against the generated `Database` types.
+ */
+export interface RdbBuilder<RowType> extends PromiseLike<RdbResult<RowType>> {
+  select(): RdbBuilder<RowType>;
+  select(columns: "*"): RdbBuilder<RowType>;
+  limit(count: number): RdbBuilder<RowType>;
+  order<Column extends keyof RowType & string>(
+    column: Column,
+    options?: { ascending?: boolean },
+  ): RdbBuilder<RowType>;
   eq<Column extends keyof RowType & string>(
     column: Column,
     value: RowType[Column],
-  ): Promise<RdbResult<RowType>>;
-};
-
-export type TypedRdbTable<Table extends TableName> = TypedRdbQuery<Row<Table>> & {
-  insert(values: Insert<Table>): Promise<RdbResult<Row<Table>>>;
-  update(values: Update<Table>): TypedRdbFilter<Row<Table>>;
-  delete(): TypedRdbFilter<Row<Table>>;
-};
-
-type TypedRdbTables = {
-  [Table in TableName]: TypedRdbTable<Table>;
-};
-
-type UnionToIntersection<Union> = (Union extends unknown ? (value: Union) => void : never) extends (
-  value: infer Intersection,
-) => void
-  ? Intersection
-  : never;
-
-type TypedRdbFrom = UnionToIntersection<
-  {
-    [Table in TableName]: (table: Table) => TypedRdbTables[Table];
-  }[TableName]
->;
-
-export type TypedRdb = {
-  from: TypedRdbFrom;
-};
-
-export async function getRows<Table extends TableName>(
-  client: CloudbaseSdkClient,
-  table: Table,
-  query: Partial<Row<Table>> = {},
-): Promise<Row<Table>[]> {
-  const result = await client.database().collection(table).where(query).get();
-  const data = result.data as unknown;
-  if (Array.isArray(data)) return data as Row<Table>[];
-  if (data && typeof data === "object" && "list" in data && Array.isArray(data.list)) {
-    return data.list as Row<Table>[];
-  }
-  return [];
+  ): RdbBuilder<RowType>;
+  single(): PromiseLike<RdbSingleResult<RowType>>;
 }
 
-export function typedCollection<Table extends TableName>(client: CloudbaseSdkClient, table: Table) {
-  return client.database().collection(table) as ReturnType<
-    ReturnType<CloudbaseSdkClient["database"]>["collection"]
-  > & {
-    __cloudbaseTypes?: {
-      row: Row<Table>;
-      insert: Insert<Table>;
-      update: Update<Table>;
-    };
-  };
+export interface RdbTable<Table extends TableName> {
+  select(): RdbBuilder<Row<Table>>;
+  select(columns: "*"): RdbBuilder<Row<Table>>;
+  insert(values: Insert<Table> | Insert<Table>[]): PromiseLike<RdbResult<Row<Table>>>;
+  update(values: Update<Table>): RdbBuilder<Row<Table>>;
+  delete(): RdbBuilder<Row<Table>>;
 }
 
-export function typedRdb(client: CloudbaseSdkClient): TypedRdb {
-  return {
-    from: ((table: TableName) => {
-      const collection = client.database().collection(table);
-      return {
-        ...typedQuery<Row<typeof table>>(collection),
-        insert(values: Insert<typeof table>) {
-          return collection.add(values).then(() => ({ data: null, error: null }));
-        },
-        update(values: Update<typeof table>) {
-          return typedFilter<Row<typeof table>>((query) => collection.where(query).update(values));
-        },
-        delete() {
-          return typedFilter<Row<typeof table>>((query) => collection.where(query).remove());
-        },
-      };
-    }) as TypedRdbFrom,
-  };
-}
-
-function typedQuery<RowType>(
-  query: ReturnType<ReturnType<CloudbaseSdkClient["database"]>["collection"]>,
-): TypedRdbQuery<RowType> {
-  return {
-    select() {
-      return typedQuery<RowType>(query);
-    },
-    limit(count: number) {
-      return query
-        .limit(count)
-        .get()
-        .then((result) => ({
-          data: toRows<RowType>(result.data),
-          error: null,
-        }));
-    },
-  };
-}
-
-function toRows<RowType>(value: unknown): RowType[] | null {
-  if (Array.isArray(value)) return value as RowType[];
-  if (value && typeof value === "object" && "list" in value && Array.isArray(value.list)) {
-    return value.list as RowType[];
-  }
-  return null;
-}
-
-function typedFilter<RowType>(
-  execute: (query: Record<string, unknown>) => Promise<unknown>,
-): TypedRdbFilter<RowType> {
-  return {
-    eq(column, value) {
-      return execute({ [column]: value }).then(() => ({ data: null, error: null }));
-    },
-  };
+export interface TypedRdb {
+  from<Table extends TableName>(table: Table): RdbTable<Table>;
 }
