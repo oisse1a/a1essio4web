@@ -1,2 +1,3 @@
 /* fix style not working in monorepo  */
 @source "../components";
+@import "./globals.css";

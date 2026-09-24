@@ -7,6 +7,8 @@ import viteReact from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import netlify from "@netlify/vite-plugin-tanstack-start";
 import { lazyPlugins } from "vite-plus";
+// @ts-ignore
+import { paraglideVitePlugin } from "@inlang/paraglide-js";
 
 const config = defineConfig({
   resolve: { tsconfigPaths: true },
@@ -23,6 +25,14 @@ const config = defineConfig({
     tailwindcss(),
     tanstackStart(),
     viteReact(),
+    paraglideVitePlugin({
+      project: "./project.inlang",
+      outdir: "./app/paraglide",
+      outputStructure: "message-modules",
+      emitTsDeclarations: true,
+      cookieName: "PARAGLIDE_LOCALE",
+      strategy: ["url", "cookie", "preferredLanguage", "baseLocale"],
+    }),
   ]),
 });
 

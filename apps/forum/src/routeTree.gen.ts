@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AuthenticatedUserRouteImport } from './routes/_authenticated/user'
 import { Route as DemoStoreRouteImport } from './routes/demo/store'
 import { Route as DemoTableRouteImport } from './routes/demo/table'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo/tanstack-query'
@@ -25,6 +26,11 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedUserRoute = AuthenticatedUserRouteImport.update({
+  id: '/_authenticated/user',
+  path: '/user',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DemoStoreRoute = DemoStoreRouteImport.update({
@@ -56,6 +62,7 @@ const DemoFormSimpleRoute = DemoFormSimpleRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/user': typeof AuthenticatedUserRoute
   '/demo/store': typeof DemoStoreRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
@@ -65,6 +72,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/user': typeof AuthenticatedUserRoute
   '/demo/store': typeof DemoStoreRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
@@ -75,6 +83,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/_authenticated/user': typeof AuthenticatedUserRoute
   '/demo/store': typeof DemoStoreRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
@@ -86,6 +95,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/user'
     | '/demo/store'
     | '/demo/table'
     | '/demo/tanstack-query'
@@ -95,6 +105,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/user'
     | '/demo/store'
     | '/demo/table'
     | '/demo/tanstack-query'
@@ -104,6 +115,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/_authenticated/user'
     | '/demo/store'
     | '/demo/table'
     | '/demo/tanstack-query'
@@ -114,6 +126,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AuthenticatedUserRoute: typeof AuthenticatedUserRoute
   DemoStoreRoute: typeof DemoStoreRoute
   DemoTableRoute: typeof DemoTableRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
@@ -135,6 +148,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/user': {
+      id: '/_authenticated/user'
+      path: '/user'
+      fullPath: '/user'
+      preLoaderRoute: typeof AuthenticatedUserRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/demo/store': {
@@ -178,6 +198,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AuthenticatedUserRoute: AuthenticatedUserRoute,
   DemoStoreRoute: DemoStoreRoute,
   DemoTableRoute: DemoTableRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
