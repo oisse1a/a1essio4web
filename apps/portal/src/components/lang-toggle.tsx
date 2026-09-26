@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@repo/shadcn/components/ui/dropdown-menu";
 import { Languages } from "lucide-react";
+import { m } from "~/app/paraglide/messages";
 import { getLocale, isLocale, setLocale } from "~/app/paraglide/runtime";
 
 export default function LangToggle() {
@@ -18,11 +19,10 @@ export default function LangToggle() {
     <DropdownMenu>
       <DropdownMenuTrigger render={<Button variant="outline" size="sm" aria-label="选择语言" />}>
         <Languages />
-        <span className="hidden sm:inline">{locale === "zh" ? "中文" : "English"}</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="rounded-[25px]" align="end">
         <DropdownMenuGroup>
-          <DropdownMenuLabel>语言 / Language</DropdownMenuLabel>
+          <DropdownMenuLabel>{m.early_funny_macaw_emerge()}</DropdownMenuLabel>
         </DropdownMenuGroup>
         <DropdownMenuRadioGroup
           value={locale}
